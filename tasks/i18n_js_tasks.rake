@@ -2,3 +2,4 @@
 # task :i18n_js do
 #   # Task goes here
 # end
+

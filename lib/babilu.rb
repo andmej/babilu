@@ -2,6 +2,8 @@ require "i18n_extensions"
 module Babilu
 
   JAVASCRIPT = File.read(File.join(File.dirname(__FILE__), 'javascripts', 'babilu.js'));
+  mattr_accessor :regenerate_after_requests
+  regenerate_after_requests = Rails.env.development?
 
   def self.generate
     Lucy.generate("locales") do |g|
@@ -29,7 +31,7 @@ module Babilu
 
     def self.included(controller)
       controller.send(:after_filter, :set_locale_cookie)
-      controller.send(:after_filter, :generate_locale_javascript) if Rails.env.development?
+      controller.send(:after_filter, :generate_locale_javascript) if Babilu.regenerate_after_requests
     end
 
   private
