@@ -42,6 +42,7 @@ module Babilu
 
     #In development mode, re-generate locale data on each request
     def generate_locale_javascript
+      I18n.reload!
       Babilu.generate
     end
 
